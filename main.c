@@ -4,6 +4,7 @@
 #include<time.h>
 int main()
 {
+    int choice;
     printf("========================\n");
     printf(" LIFE COMPANION SYSTEM  \n");
     printf("========================\n");
@@ -16,5 +17,10 @@ int main()
     printf("4. Motivation Boost\n");
     printf("5. Progress Report\n");
     printf("6. Exit\n");
+
+    printf("\nEnter your choice: ");
+    scanf("%d",&choice);
+
+    printf("You entered: %d\n", choice);
     return 0;
 }
