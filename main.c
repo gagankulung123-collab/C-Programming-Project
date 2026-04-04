@@ -71,6 +71,19 @@ int main()
                         printf("[PENDING]\n");
                     }
                 }
+                int markChoice;
+                printf("\nEnter task number to mark as done (0 to skip): ");
+                scanf("%d", &markChoice);
+
+                if(markChoice > 0 && markChoice <= taskCount)
+                {
+                    tasks[markChoice - 1].isDone =1;
+                    printf("Task %d marked as done!\n", markChoice);
+                }
+                else if(markChoice != 0)
+                {
+                    printf("Invalid Task number!\n");
+                }
             }
             break;
 
