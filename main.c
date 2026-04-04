@@ -12,6 +12,9 @@ struct Task
 int main()
 {
     int choice;
+    struct Task tasks[10];
+    int taskCount=0;
+    
     printf("========================\n");
     printf(" LIFE COMPANION SYSTEM  \n");
     printf("========================\n");
