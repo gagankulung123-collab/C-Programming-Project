@@ -14,7 +14,8 @@ int main()
     int choice;
     struct Task tasks[10];
     int taskCount=0;
-    
+    int i;
+
     printf("========================\n");
     printf(" LIFE COMPANION SYSTEM  \n");
     printf("========================\n");
@@ -35,11 +36,25 @@ int main()
         switch (choice)
         {
         case 1:
-            printf("\n[Add Daily Tasks -Coming Soon]\n");
+            if(taskCount < 10)
+            {
+                printf("\nEnter task name: ");
+                getchar();
+                scanf("%[^\n]", tasks[taskCount].name);
+                tasks[taskCount].isDone= 0;
+                taskCount++;
+                printf("Task added successfully!\n");
+            }
+            else
+            {
+                printf("\nTask list is full! Max 10 tasks.\n");
+            }
             break;
+
         case 2:
             printf("\n[View Tasks -Coming Soon]\n");
             break;
+
         case 3:
             printf("\n[Mood Check -Coming Soon]\n");
             break;
