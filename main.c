@@ -2,6 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+
+struct Task
+{
+ char name[100];
+ int isDone;
+};
+
 int main()
 {
     int choice;
