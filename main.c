@@ -52,7 +52,26 @@ int main()
             break;
 
         case 2:
-            printf("\n[View Tasks -Coming Soon]\n");
+            if(taskCount == 0)
+            {
+                printf("\nNo tasks added yet!\n");
+            }
+            else
+            {
+                printf("\n--- Your TASKS ---\n");
+                for(int i=0; i < taskCount; i++)
+                {
+                    printf("%d. %s", i+1, tasks[i].name);
+                    if(tasks[i].isDone == 1)
+                    {
+                        printf("[DONE]\n");
+                    }
+                    else
+                    {
+                        printf("[PENDING]\n");
+                    }
+                }
+            }
             break;
 
         case 3:
