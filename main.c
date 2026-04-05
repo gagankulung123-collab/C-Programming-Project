@@ -5,8 +5,8 @@
 
 struct Task
 {
- char name[100];
- int isDone;
+    char name[100];
+    int isDone;
 };
 
 struct Task tasks[10];
@@ -17,23 +17,23 @@ void saveTasks()
     time_t t = time(NULL);
     struct tm *today = localtime(&t);
 
-    FILE *file =fopen("tasks.txt","a");
+    FILE *file = fopen("tasks.txt", "a");
 
-    if(file == NULL)
+    if (file == NULL)
     {
         printf("Errir saving  tasks!\n");
         return;
     }
-    fprintf(file, "\nDate: %d-%02d-%02d\n", today->tm_year+1900, today->tm_mon+1, today->tm_mday);
-    for(int i=0; i< taskCount;i++)
+    fprintf(file, "\nDate: %d-%02d-%02d\n", today->tm_year + 1900, today->tm_mon + 1, today->tm_mday);
+    for (int i = 0; i < taskCount; i++)
     {
-        if(tasks[i].isDone ==1)
+        if (tasks[i].isDone == 1)
         {
-            fprintf(file, "%d. %s [DONE]\n", i+1, tasks[i].name);
+            fprintf(file, "%d. %s [DONE]\n", i + 1, tasks[i].name);
         }
         else
         {
-            fprintf(file, "%d. %s [PENDING]\n", i+1, tasks[i].name);
+            fprintf(file, "%d. %s [PENDING]\n", i + 1, tasks[i].name);
         }
     }
     fclose(file);
@@ -64,12 +64,12 @@ int main()
         switch (choice)
         {
         case 1:
-            if(taskCount < 10)
+            if (taskCount < 10)
             {
                 printf("\nEnter task name: ");
                 getchar();
                 scanf("%[^\n]", tasks[taskCount].name);
-                tasks[taskCount].isDone= 0;
+                tasks[taskCount].isDone = 0;
                 taskCount++;
                 printf("Task added successfully!\n");
             }
@@ -80,17 +80,17 @@ int main()
             break;
 
         case 2:
-            if(taskCount == 0)
+            if (taskCount == 0)
             {
                 printf("\nNo tasks added yet!\n");
             }
             else
             {
                 printf("\n--- Your TASKS ---\n");
-                for(int i=0; i < taskCount; i++)
+                for (int i = 0; i < taskCount; i++)
                 {
-                    printf("%d. %s", i+1, tasks[i].name);
-                    if(tasks[i].isDone == 1)
+                    printf("%d. %s", i + 1, tasks[i].name);
+                    if (tasks[i].isDone == 1)
                     {
                         printf("[DONE]\n");
                     }
@@ -103,12 +103,12 @@ int main()
                 printf("\nEnter task number to mark as done (0 to skip): ");
                 scanf("%d", &markChoice);
 
-                if(markChoice > 0 && markChoice <= taskCount)
+                if (markChoice > 0 && markChoice <= taskCount)
                 {
-                    tasks[markChoice - 1].isDone =1;
+                    tasks[markChoice - 1].isDone = 1;
                     printf("Task %d marked as done!\n", markChoice);
                 }
-                else if(markChoice != 0)
+                else if (markChoice != 0)
                 {
                     printf("Invalid Task number!\n");
                 }
@@ -125,7 +125,7 @@ int main()
             printf("\n[Progress Report -Coming Soon]\n");
             break;
         case 6:
-        saveTasks();
+            saveTasks();
             printf("\nGoodbye! Keep going strong!\n");
             exit(0);
         default:
