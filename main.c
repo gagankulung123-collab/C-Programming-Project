@@ -9,12 +9,40 @@ struct Task
  int isDone;
 };
 
+struct Task tasks[10];
+int taskCount = 0;
+
+void saveTasks()
+{
+    time_t t = time(NULL);
+    struct tm *today = localtime(&t);
+
+    FILE *file =fopen("tasks.txt","a");
+
+    if(file == NULL)
+    {
+        printf("Errir saving  tasks!\n");
+        return;
+    }
+    fprintf(file, "\nDate: %d-%02d-%02d\n", today->tm_year+1900, today->tm_mon+1, today->tm_mday);
+    for(int i=0; i< taskCount;i++)
+    {
+        if(tasks[i].isDone ==1)
+        {
+            fprintf(file, "%d. %s [DONE]\n", i+1, tasks[i].name);
+        }
+        else
+        {
+            fprintf(file, "%d. %s [PENDING]\n", i+1, tasks[i].name);
+        }
+    }
+    fclose(file);
+    printf("Tasks saved to: tasks.txt\n");
+    printf("Total tasks saved: %d\n", taskCount);
+}
 int main()
 {
     int choice;
-    struct Task tasks[10];
-    int taskCount=0;
-    int i;
 
     printf("========================\n");
     printf(" LIFE COMPANION SYSTEM  \n");
@@ -97,6 +125,7 @@ int main()
             printf("\n[Progress Report -Coming Soon]\n");
             break;
         case 6:
+        saveTasks();
             printf("\nGoodbye! Keep going strong!\n");
             exit(0);
         default:
