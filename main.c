@@ -147,6 +147,23 @@ int main()
                 {
                     printf("Invalid Task number!\n");
                 }
+
+                int deleteChoice;
+                printf("\nEnter task nuber you want to delete(0 to skip): ");
+                scanf("%d",&deleteChoice);
+                if(deleteChoice > 0 && deleteChoice<=taskCount)
+                {
+                    for(int i=deleteChoice-1;i<taskCount-1;i++)
+                    {
+                        tasks[i]=tasks[i+1];
+                    }
+                    taskCount--;
+                    printf("Task %d deleted successfully!\n", deleteChoice);
+                }
+                else if(deleteChoice !=0)
+                {
+                    printf("Invalid Task number!\n");
+                }
             }
             break;
 
