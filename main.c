@@ -55,9 +55,29 @@ void saveTasksData()
     }
     fclose(file);
 }
+
+void loadTasks()
+{
+    FILE *file = fopen("tasks_data.txt", "r");
+    if (file == NULL)
+    {
+        return;
+    }
+    while (taskCount < 10)
+    {
+        int result = fscanf(file, "%[^|]|%d\n", tasks[taskCount].name, &tasks[taskCount].isDone);
+        if (result != 2)
+        {
+            break;
+        }
+        taskCount++;
+    }
+    fclose(file);
+}
 int main()
 {
     int choice;
+    loadTasks();
 
     printf("========================\n");
     printf(" LIFE COMPANION SYSTEM  \n");
