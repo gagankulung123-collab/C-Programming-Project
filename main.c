@@ -40,6 +40,21 @@ void saveTasks()
     printf("Tasks saved to: tasks.txt\n");
     printf("Total tasks saved: %d\n", taskCount);
 }
+
+void saveTasksData()
+{
+    FILE *file = fopen("tasks_data.txt", "w");
+    if (file == NULL)
+    {
+        printf("Error saving task data!\n");
+        return;
+    }
+    for (int i = 0; i < taskCount; i++)
+    {
+        fprintf(file, "%s|%d\n", tasks[i].name, tasks[i].isDone);
+    }
+    fclose(file);
+}
 int main()
 {
     int choice;
@@ -126,6 +141,7 @@ int main()
             break;
         case 6:
             saveTasks();
+            saveTasksData();
             printf("\nGoodbye! Keep going strong!\n");
             exit(0);
         default:
