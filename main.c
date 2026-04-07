@@ -88,10 +88,9 @@ int main()
         printf("\n--- MAIN MENU ---\n");
         printf("1. Add Daily Tasks\n");
         printf("2. View Tasks\n");
-        printf("3. Mood Check\n");
-        printf("4. Motivation Boost\n");
-        printf("5. Progress Report\n");
-        printf("6. Exit\n");
+        printf("3. Motivation Boost\n");
+        printf("4. Progress Report\n");
+        printf("5. Exit\n");
 
         printf("\nEnter your choice: ");
         scanf("%d", &choice);
@@ -150,17 +149,17 @@ int main()
 
                 int deleteChoice;
                 printf("\nEnter task nuber you want to delete(0 to skip): ");
-                scanf("%d",&deleteChoice);
-                if(deleteChoice > 0 && deleteChoice<=taskCount)
+                scanf("%d", &deleteChoice);
+                if (deleteChoice > 0 && deleteChoice <= taskCount)
                 {
-                    for(int i=deleteChoice-1;i<taskCount-1;i++)
+                    for (int i = deleteChoice - 1; i < taskCount - 1; i++)
                     {
-                        tasks[i]=tasks[i+1];
+                        tasks[i] = tasks[i + 1];
                     }
                     taskCount--;
                     printf("Task %d deleted successfully!\n", deleteChoice);
                 }
-                else if(deleteChoice !=0)
+                else if (deleteChoice != 0)
                 {
                     printf("Invalid Task number!\n");
                 }
@@ -168,21 +167,32 @@ int main()
             break;
 
         case 3:
-            printf("\n[Mood Check -Coming Soon]\n");
+        {
+            char *quotes[] = {
+                "Don't give up! Success takes time!",
+                "Believe in yourself! You are stronger than you think!",
+                "Every day is a new opportunity! Grab it!",
+                "Hard work always pays off! Keep going!",
+                "You are capable of amazing things!",
+                "Stay focused and never stop trying!",
+                "Success is not final, failure is not fatal!",
+                "Dream big and work hard!"};
+            int totalQuotes = 8;
+            int random = rand() % totalQuotes;
+            printf("\nMotivation Quote of the Day!\n");
+            printf("%s\n", quotes[random]);
             break;
+        }
         case 4:
-            printf("\n[Motivation Boost -Coming Soon]\n");
-            break;
-        case 5:
             printf("\n[Progress Report -Coming Soon]\n");
             break;
-        case 6:
+        case 5:
             saveTasks();
             saveTasksData();
             printf("\nGoodbye! Keep going strong!\n");
             exit(0);
         default:
-            printf("\nInvalid choice! Please enter 1-6.\n");
+            printf("\nInvalid choice! Please enter 1-5.\n");
         }
     }
     return 0;
