@@ -184,12 +184,55 @@ int main()
             break;
         }
         case 4:
-            printf("\n[Progress Report -Coming Soon]\n");
+        {
+            int completed = 0;
+            int pending = 0;
+            for (int i = 0; i < taskCount; i++)
+            {
+                if (tasks[i].isDone == 1)
+                {
+                    completed++;
+                }
+                else
+                {
+                    pending++;
+                }
+            }
+
+            int productivity = 0;
+            if (taskCount > 0)
+            {
+                productivity = (completed * 100) / taskCount;
+            }
+
+            printf("\n--- PROGRESS REPORT ---\n");
+            printf("Total Tasks   : %d\n", taskCount);
+            printf("Completed     : %d\n", completed);
+            printf("Pending       : %d\n", pending);
+            printf("Productivity  : %d%%\n", productivity);
+
+            if (productivity == 100)
+            {
+                printf("Excellent! All tasks completed!\n");
+            }
+            else if (productivity >= 50)
+            {
+                printf("Good job! Keep going!\n");
+            }
+            else if (productivity > 0)
+            {
+                printf("Keep pushing! You can do it!\n");
+            }
+            else
+            {
+                printf("No tasks completed yet! Start now!\n");
+            }
             break;
+        }
         case 5:
             saveTasks();
             saveTasksData();
-            printf("\nGoodbye! Keep going strong!\n");
+            printf("\nHave a Good Day! Keep going strong!\n");
             exit(0);
         default:
             printf("\nInvalid choice! Please enter 1-5.\n");
