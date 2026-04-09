@@ -104,6 +104,45 @@ void registerUser()
     strcpy(currentUser, username);
     printf("\nRegistration successful! Welcome %s!\n", username);
 }
+
+int loginUser()
+{
+    char username[100];
+    char password[100];
+    char fileUser[100];
+    char filePass[100];
+
+    printf("\n--- LOGIN ---\n");
+    printf("Enter username: ");
+    getchar();
+    scanf("%[^\n]", username);
+
+    printf("Enter password: ");
+    getchar();
+    scanf("%[^\n]", password);
+
+    FILE *file = fopen("users.txt", "r");
+
+    if (file == NULL)
+    {
+        printf("\nNo users registered yet! Please register first.\n");
+        return 0;
+    }
+
+    while (fscanf(file, "%[^|]|%[^\n]\n", fileUser, filePass) == 2)
+    {
+        if (strcmp(username, fileUser) == 0 && strcmp(password, filePass) == 0)
+        {
+            fclose(file);
+            strcpy(currentUser, username);
+            printf("\nLogin Successful! Welcome Back %s!", username);
+            return 1;
+        }
+    }
+    fclose(file);
+    printf("\nWrong username or password! Please try again.\n");
+    return 0;
+}
 int main()
 {
     int choice;
