@@ -18,7 +18,9 @@ void saveTasks()
     time_t t = time(NULL);
     struct tm *today = localtime(&t);
 
-    FILE *file = fopen("tasks.txt", "a");
+    char filename[150];
+    sprintf(filename, "tasks_%s.txt", currentUser);
+    FILE *file = fopen(filename, "a");
 
     if (file == NULL)
     {
@@ -44,7 +46,9 @@ void saveTasks()
 
 void saveTasksData()
 {
-    FILE *file = fopen("tasks_data.txt", "w");
+    char filename[150];
+    sprintf(filename, "tasks_data_%s.txt", currentUser);
+    FILE *file = fopen(filename, "w");
     if (file == NULL)
     {
         printf("Error saving task data!\n");
@@ -59,7 +63,9 @@ void saveTasksData()
 
 void loadTasks()
 {
-    FILE *file = fopen("tasks_data.txt", "r");
+    char filename[150];
+    sprintf(filename, "tasks_data_%s.txt", currentUser);
+    FILE *file = fopen(filename, "r");
     if (file == NULL)
     {
         return;
@@ -102,7 +108,7 @@ void registerUser()
     fclose(file);
 
     strcpy(currentUser, username);
-    printf("\nRegistration successful! Welcome %s!\n", username);
+    printf("\nRegistration successful!\n");
 }
 
 int loginUser()
@@ -146,12 +152,44 @@ int loginUser()
 int main()
 {
     int choice;
-    loadTasks();
+    int loginChoice;
+    int loggedIn = 0;
 
     printf("========================\n");
     printf(" LIFE COMPANION SYSTEM  \n");
     printf("========================\n");
-    printf("Welcome!\n");
+    while (loggedIn == 0)
+    {
+
+        printf("\n1. Register\n");
+        printf("2. Login\n");
+        printf("3. Exit\n");
+        printf("\nEnter choice: ");
+        scanf("%d", &loginChoice);
+
+        if (loginChoice == 1)
+        {
+            registerUser();
+            loggedIn = 1;
+        }
+        else if (loginChoice == 2)
+        {
+            loggedIn = loginUser();
+        }
+        else if (loginChoice == 3)
+        {
+            printf("\nGoodbye!\n");
+            exit(0);
+        }
+        else
+        {
+            printf("\nInvalid choice!\n");
+        }
+    }
+
+    loadTasks();
+    printf("\nWelcome %s! Your tasks have been loaded.\n", currentUser);
+
     while (1)
     {
         printf("\n--- MAIN MENU ---\n");
