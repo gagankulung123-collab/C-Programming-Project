@@ -11,6 +11,7 @@ struct Task
 
 struct Task tasks[10];
 int taskCount = 0;
+char currentUser[100];
 
 void saveTasks()
 {
@@ -73,6 +74,35 @@ void loadTasks()
         taskCount++;
     }
     fclose(file);
+}
+
+void registerUser()
+{
+    char username[100];
+    char password[100];
+
+    printf("\n--- REGISTER ---\n");
+    printf("Enter Username: ");
+    getchar();
+    scanf("%[^\n]", username);
+
+    printf("Enter Password: ");
+    getchar();
+    scanf("%[^\n]", password);
+
+    FILE *file = fopen("users.txt", "a");
+
+    if (file == NULL)
+    {
+        printf("Error saving user!\n");
+        return;
+    }
+
+    fprintf(file, "%s|%s\n", username, password);
+    fclose(file);
+
+    strcpy(currentUser, username);
+    printf("\nRegistration successful! Welcome %s!\n", username);
 }
 int main()
 {
