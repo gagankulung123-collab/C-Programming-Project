@@ -24,7 +24,7 @@ void saveTasks()
 
     if (file == NULL)
     {
-        printf("Error saving  tasks!\n");
+        printf("Error saving tasks!\n");
         return;
     }
     fprintf(file, "\nDate: %d-%02d-%02d\n", today->tm_year + 1900, today->tm_mon + 1, today->tm_mday);
@@ -177,6 +177,8 @@ int main()
     {
         fscanf(session, "%s", currentUser);
         fclose(session);
+        taskCount = 0;
+        memset(tasks, 0, sizeof(tasks));
         loadTasks();
         printf("\nAuto login as %s!\n", currentUser);
         loggedIn = 1;
@@ -211,8 +213,11 @@ int main()
         }
     }
 
-    loadTasks();
-    printf("\nWelcome %s! Your tasks have been loaded.\n", currentUser);
+    if (loggedIn == 1 && taskCount == 0)
+    {
+        loadTasks();
+        printf("\nWelcome %s! Your tasks have been loaded.\n", currentUser);
+    }
 
     while (1)
     {
@@ -374,6 +379,7 @@ int main()
             printf("\nSwitching user...\n");
 
             taskCount = 0;
+            memset(tasks, 0, sizeof(tasks));
             loggedIn = 0;
 
             while (loggedIn == 0)
@@ -403,6 +409,9 @@ int main()
                     printf("\nInvalid choice!\n");
                 }
             }
+
+            taskCount = 0;
+            memset(tasks, 0, sizeof(tasks));
             loadTasks();
             printf("\nWelcome %s! Your tasks have been loaded.\n", currentUser);
             break;
@@ -413,7 +422,7 @@ int main()
             printf("\nHave a Good Day! Keep going strong!\n");
             exit(0);
         default:
-            printf("\nInvalid choice! Please enter 1-5.\n");
+            printf("\nInvalid choice! Please enter 1-6.\n");
         }
     }
     return 0;
