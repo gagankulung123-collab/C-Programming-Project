@@ -20,11 +20,11 @@ void saveTasks()
 
     char filename[150];
     sprintf(filename, "tasks_%s.txt", currentUser);
-    FILE *file = fopen(filename, "a");
+    FILE *file = fopen(filename, "w");
 
     if (file == NULL)
     {
-        printf("Errir saving  tasks!\n");
+        printf("Error saving  tasks!\n");
         return;
     }
     fprintf(file, "\nDate: %d-%02d-%02d\n", today->tm_year + 1900, today->tm_mon + 1, today->tm_mday);
@@ -40,7 +40,7 @@ void saveTasks()
         }
     }
     fclose(file);
-    printf("Tasks saved to: tasks.txt\n");
+    printf("Tasks saved to: tasks_%s.txt\n", currentUser);
     printf("Total tasks saved: %d\n", taskCount);
 }
 
@@ -141,7 +141,7 @@ int loginUser()
         {
             fclose(file);
             strcpy(currentUser, username);
-            printf("\nLogin Successful! Welcome Back %s!", username);
+            printf("\nLogin Successful! Welcome Back %s!\n", username);
             return 1;
         }
     }
@@ -227,48 +227,52 @@ int main()
             }
             else
             {
-                printf("\n--- Your TASKS ---\n");
+                printf("\n--- YOUR TASKS ---\n");
                 for (int i = 0; i < taskCount; i++)
                 {
                     printf("%d. %s", i + 1, tasks[i].name);
                     if (tasks[i].isDone == 1)
                     {
-                        printf("[DONE]\n");
+                        printf(" [DONE]\n");
                     }
                     else
                     {
-                        printf("[PENDING]\n");
+                        printf(" [PENDING]\n");
                     }
                 }
+
+                printf("\nEnter task numbers to mark as done (e.g. 1 2 3) (0 to skip): ");
                 int markChoice;
-                printf("\nEnter task number to mark as done (0 to skip): ");
-                scanf("%d", &markChoice);
-
-                if (markChoice > 0 && markChoice <= taskCount)
+                while (scanf("%d", &markChoice) && markChoice != 0)
                 {
-                    tasks[markChoice - 1].isDone = 1;
-                    printf("Task %d marked as done!\n", markChoice);
-                }
-                else if (markChoice != 0)
-                {
-                    printf("Invalid Task number!\n");
-                }
-
-                int deleteChoice;
-                printf("\nEnter task nuber you want to delete(0 to skip): ");
-                scanf("%d", &deleteChoice);
-                if (deleteChoice > 0 && deleteChoice <= taskCount)
-                {
-                    for (int i = deleteChoice - 1; i < taskCount - 1; i++)
+                    if (markChoice > 0 && markChoice <= taskCount)
                     {
-                        tasks[i] = tasks[i + 1];
+                        tasks[markChoice - 1].isDone = 1;
+                        printf("Task %d marked as done!\n", markChoice);
                     }
-                    taskCount--;
-                    printf("Task %d deleted successfully!\n", deleteChoice);
+                    else
+                    {
+                        printf("Invalid task number!\n");
+                    }
                 }
-                else if (deleteChoice != 0)
+
+                printf("\nEnter task numbers to delete (e.g. 1 2 3) (0 to skip): ");
+                int deleteChoice;
+                while (scanf("%d", &deleteChoice) && deleteChoice != 0)
                 {
-                    printf("Invalid Task number!\n");
+                    if (deleteChoice > 0 && deleteChoice <= taskCount)
+                    {
+                        for (int j = deleteChoice - 1; j < taskCount - 1; j++)
+                        {
+                            tasks[j] = tasks[j + 1];
+                        }
+                        taskCount--;
+                        printf("Task %d deleted successfully!\n", deleteChoice);
+                    }
+                    else
+                    {
+                        printf("Invalid task number!\n");
+                    }
                 }
             }
             break;
