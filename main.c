@@ -108,6 +108,12 @@ void registerUser()
     fclose(file);
 
     strcpy(currentUser, username);
+    FILE *session = fopen("session.txt", "w");
+    if (session != NULL)
+    {
+        fprintf(session, "%s", currentUser);
+        fclose(session);
+    }
     printf("\nRegistration successful!\n");
 }
 
@@ -141,6 +147,13 @@ int loginUser()
         {
             fclose(file);
             strcpy(currentUser, username);
+            FILE *session = fopen("session.txt", "w");
+            if (session != NULL)
+            {
+                fprintf(session, "%s", currentUser);
+                fclose(session);
+            }
+
             printf("\nLogin Successful! Welcome Back %s!\n", username);
             return 1;
         }
@@ -158,6 +171,17 @@ int main()
     printf("========================\n");
     printf(" LIFE COMPANION SYSTEM  \n");
     printf("========================\n");
+
+    FILE *session = fopen("session.txt", "r");
+    if (session != NULL)
+    {
+        fscanf(session, "%s", currentUser);
+        fclose(session);
+        loadTasks();
+        printf("\nAuto login as %s!\n", currentUser);
+        loggedIn = 1;
+    }
+
     while (loggedIn == 0)
     {
 
@@ -197,7 +221,8 @@ int main()
         printf("2. View Tasks\n");
         printf("3. Motivation Boost\n");
         printf("4. Progress Report\n");
-        printf("5. Exit\n");
+        printf("5. Switch User\n");
+        printf("6. Exit\n");
 
         printf("\nEnter your choice: ");
         scanf("%d", &choice);
@@ -291,6 +316,7 @@ int main()
             int totalQuotes = 8;
             int random = rand() % totalQuotes;
             printf("\nMotivation Quote of the Day!\n");
+            printf("============================\n");
             printf("%s\n", quotes[random]);
             break;
         }
@@ -341,6 +367,47 @@ int main()
             break;
         }
         case 5:
+            saveTasks();
+            saveTasksData();
+
+            remove("session.txt");
+            printf("\nSwitching user...\n");
+
+            taskCount = 0;
+            loggedIn = 0;
+
+            while (loggedIn == 0)
+            {
+                printf("\n1. Register\n");
+                printf("2. Login\n");
+                printf("3. Exit\n");
+                printf("\nEnter choice: ");
+                scanf("%d", &loginChoice);
+
+                if (loginChoice == 1)
+                {
+                    registerUser();
+                    loggedIn = 1;
+                }
+                else if (loginChoice == 2)
+                {
+                    loggedIn = loginUser();
+                }
+                else if (loginChoice == 3)
+                {
+                    printf("\nGoodbye! Have a Great Day!\n");
+                    exit(0);
+                }
+                else
+                {
+                    printf("\nInvalid choice!\n");
+                }
+            }
+            loadTasks();
+            printf("\nWelcome %s! Your tasks have been loaded.\n", currentUser);
+            break;
+
+        case 6:
             saveTasks();
             saveTasksData();
             printf("\nHave a Good Day! Keep going strong!\n");
