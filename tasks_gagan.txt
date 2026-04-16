@@ -1,1 +1,4 @@
 
+Date: 2026-04-16
+1. Study c programming [PENDING]
+2. Running Workout [DONE]

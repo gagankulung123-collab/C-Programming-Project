@@ -30,7 +30,7 @@ void saveTasks()
     fprintf(file, "\nDate: %d-%02d-%02d\n", today->tm_year + 1900, today->tm_mon + 1, today->tm_mday);
     for (int i = 0; i < taskCount; i++)
     {
-        if (tasks[i].isDone == 1)
+         if (tasks[i].isDone == 1)
         {
             fprintf(file, "%d. %s [DONE]\n", i + 1, tasks[i].name);
         }
