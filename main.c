@@ -1,21 +1,22 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <stdlib.h> //This is standard library used to use exit(), rand() & remove() function
 #include <string.h>
-#include <time.h>
+#include <time.h> //This is time and date library used to get current time and local time to convert time to date
 
-struct Task
+struct Task  // Structure that groups task data together istead of separate variables
 {
     char name[100];
-    int isDone;
+    int isDone;  //Tracks task completion status
 };
 
 struct Task tasks[10];
 int taskCount = 0;
 char currentUser[100];
 
-void saveTasks()
+void saveTasks() // User defined function that saves tasks in humam readable file
 {
-    time_t t = time(NULL);
+    time_t t = time(NULL);  //time_t t is special data type for storing time values
+                            //time(NULL) gets the current time from computer clock
     struct tm *today = localtime(&t);
 
     char filename[150];
